@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Little Corner ❤️</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-pink': '#FFC0CB', // Classic Pink
+                        'secondary-rose': '#FBCFE8', // Light Rose
+                        'accent-red': '#EF4444', // Red for heart
+                        'soft-bg': '#FFF7ED', // Creamy background
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Custom style for subtle background pattern -->
+    <style>
+        body {
+            background-color: theme('colors.soft-bg');
+            background-image: radial-gradient(theme('colors.secondary-rose') 0.5px, transparent 0.5px);
+            background-size: 15px 15px;
+            min-height: 100vh;
+        }
+        .message-card {
+            transition: all 0.5s ease-in-out;
+            transform-style: preserve-3d;
+        }
+    </style>
+</head>
+
+<body class="font-sans flex flex-col items-center justify-center p-6 sm:p-10">
+
+    <!-- Header Section -->
+    <header class="text-center mb-8 sm:mb-12">
+        <h1 class="text-5xl sm:text-6xl font-extrabold text-primary-pink drop-shadow-lg">
+            Hii, My Baby!
+        </h1>
+        <p class="text-xl sm:text-2xl text-gray-700 mt-2">
+            Just a little space for you to read hihi.
+        </p>
+    </header>
+
+    <!-- Main Interactive Card -->
+    <main class="w-full max-w-lg">
+        <div id="loveCard" class="bg-white p-8 sm:p-10 rounded-3xl shadow-2xl border-4 border-primary-pink message-card transform hover:scale-[1.02]">
+            
+            <!-- Message Display Area -->
+            <div class="text-center mb-6">
+                <div class="text-7xl mb-4 animate-pulse" id="heartIcon">
+                    💖
+                </div>
+                <p id="loveMessage" class="text-2xl sm:text-3xl font-semibold text-gray-800 italic leading-snug min-h-[90px] flex items-center justify-center">
+                    Click the button below for a sweet message! ^_^
+                </p>
+            </div>
+
+            <!-- Interactive Button -->
+            <button id="generateButton" class="w-full py-4 text-xl font-bold rounded-full text-white bg-accent-red hover:bg-red-600 transition duration-300 shadow-lg transform hover:scale-[1.05] active:scale-100 focus:outline-none focus:ring-4 focus:ring-primary-pink focus:ring-opacity-50">
+                Get a Dose of my Love! xD
+
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="mt-12 text-center text-gray-500 text-sm">
+        <p>I made this with all my heart, just for you. Although it's just a simple one huhu.&copy; 2025</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Array of cute, sweet, and loving messages
+        const messages = [
+            "My favorite sound in the whole world is your laugh. Remember the day when we walked our way from Babag Church to Public Market on Opon? Wherein we swapped our shoes because you said your feet was hurting, I still remember those laughs, baby. It melt my heart. I have a video of you laughing that time and I just kept on watching them.",
+            "You are the most beautiful person I have ever known, inside and out. I love you, baby.",
+            "Just seeing your i love yous pop up on my phone makes my whole day better.",
+            "I love every adventure we share, no matter how small.",
+            "I'm so lucky you chose me. You're my everything.",
+            "You are smart, kind, and incredibly inspiring. Keep shining, baby! I always got your back and cheering for you!!",
+            "Did you know you're the reason I smile today? True story.",
+            "Even on a bad day, you make the world feel bright.",
+            "Thank you for being you, perfectly and completely.",
+            "I'm missing you every time. I can't wait to see you again, baby!",
+            "You're my best friend, my soulmate, and my favorite person.",
+            "I'm thinking about you right now. Sending you a big digital hug! 🤗"
+        ];
+
+        let lastIndex = -1; // To ensure the first message isn't the same as the last
+        const messageElement = document.getElementById('loveMessage');
+        const buttonElement = document.getElementById('generateButton');
+        const heartIcon = document.getElementById('heartIcon');
+        
+        /**
+         * Selects a random message, ensuring it's different from the previous one.
+         */
+        function getRandomMessage() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * messages.length);
+            } while (randomIndex === lastIndex);
+            lastIndex = randomIndex;
+            return messages[randomIndex];
+        }
+
+        /**
+         * Updates the message and adds a visual 'pop' effect.
+         */
+        function displayNewMessage() {
+            const newMessage = getRandomMessage();
+            
+            // 1. Add 'fade out' effect
+            messageElement.classList.remove('opacity-100');
+            messageElement.classList.add('opacity-0');
+
+            // 2. Animate heart icon (pulse effect)
+            heartIcon.classList.remove('animate-pulse');
+            void heartIcon.offsetWidth; // Trigger reflow to restart animation
+            heartIcon.classList.add('animate-pulse');
+
+            // 3. Update text after short delay and 'fade in'
+            setTimeout(() => {
+                messageElement.textContent = newMessage;
+                messageElement.classList.remove('opacity-0');
+                messageElement.classList.add('opacity-100');
+            }, 300); // Wait for the transition duration
+        }
+
+        // Add event listener to the button
+        buttonElement.addEventListener('click', displayNewMessage);
+
+        // Optional: Preload the first message on page load after a slight delay
+        window.onload = () => {
+             setTimeout(displayNewMessage, 500);
+        };
+    </script>
+
+</body>
+</html>
